@@ -1,4 +1,4 @@
-pipeline.detectEnsemblDataset <- function(env)
+function(env)
 {
     env$preferences$database.dataset <- ""
     util.info("Autodetecting vine annotation parameters")
