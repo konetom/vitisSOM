@@ -87,12 +87,6 @@ pipeline.prepareAnnotation <- function(env)
         h <- h[which(!duplicated(names(h)))]
         env$gene.info$chr.name[names(h)] <- h
 
-        # h <- gsub("\\..*$", "", biomart.table[, "band"])
-        # names(h) <- biomart.table[, env$preferences$database.id.type]
-        # h <- h[which(h != "")]
-        # h <- h[which(!duplicated(names(h)))]
-        # env$gene.info$chr.band[names(h)] <- h
-
         h <- biomart.table[, "name_1006"]
         names(h) <- biomart.table[, env$preferences$database.id.type]
         h <- h[which(h != "")]
