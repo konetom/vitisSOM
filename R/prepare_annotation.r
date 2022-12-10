@@ -1,4 +1,4 @@
-pipeline.prepareAnnotation <- function(env)
+function(env)
 {
     empty.vec.chr <- rep("", nrow(env$indata))
     names(empty.vec.chr) <- rownames(env$indata)
