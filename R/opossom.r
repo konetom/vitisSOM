@@ -138,7 +138,7 @@ opossom.run <- function(env)
   
   if(env$preferences$activated.modules$primary.analysis)
   {
-    util.info("Processing SOM. This may take several time until next notification.")
+    util.info("Processing SOM. This may take some time until next notification.")
     env <- pipeline.prepareIndata(env)
     env <- pipeline.generateSOM(env)
     
