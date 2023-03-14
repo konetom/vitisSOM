@@ -55,7 +55,7 @@ function (env, spot.list, main, path)
         leg.num <- as.vector(sapply(leg.num, c, rep(NA, n.sets -
             1)))
         legend(x = 0.05, y = 1, unlist(top.GS), cex = 0.7, col = leg.col,
-            pch = 15, pt.cex = 1.5, bty = "n")
+            pch = 15, pt.cex = 1.2, bty = "n")
         legend(x = -0.04, y = 1, legend = leg.num, cex = 0.7,
             bty = "n")
     }
@@ -83,7 +83,7 @@ function (env, spot.list, main, path)
     plot(0, type = "n", xlab = "", ylab = "", axes = FALSE, xlim = c(0,
         1), ylim = 0.5 + c(0, nrow(spot.list$spotdata)), yaxs = "i")
     text(0.7, nrow(spot.list$spotdata):1, rownames(spot.list$spotdata),
-        adj = 1, cex = 1.8)
+        adj = 1, cex = 1.2)
     par(mar = c(1, 0, 2, 0))
     if (length(unique(env$group.labels)) > 1) {
         image(cbind(1:ncol(env$indata)), col = env$group.colors,
@@ -126,9 +126,9 @@ function (env, spot.list, main, path)
         par(mar = c(0, 0, 0, 0))
         plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
             xlim = c(0, 1), ylim = c(0, 1))
-        text(0.1, 0.94, main, cex = 2.6, adj = 0)
+        text(0.1, 0.94, main, cex = 1.5, adj = 0)
         text(0.1, 0.8, paste("Spot Summary:", names(spot.list$spots)[m]),
-            cex = 1.8, adj = 0)
+            cex = 1.2, adj = 0)
         text(0.1, 0.7, paste("# metagenes =", length(spot.list$spots[[m]]$metagenes)),
             adj = 0)
         text(0.1, 0.66, paste("# genes =", length(spot.list$spots[[m]]$genes)),
@@ -225,21 +225,12 @@ function (env, spot.list, main, path)
             y.coords <- seq(0.75, 0.02, length.out = length(o))
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
-            text(0, 0.88, "Spot Genelist", cex = 1.8, adj = 0)
+            text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
             text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("Rank",
-                "ID", "max e", "min e", "r", "", "Description"),
-                cex = 1, adj = 0)
-            text(x.coords[1], y.coords, c(seq_along(o)), adj = 0)
+                "ID", "", "Description", "", "", ""), cex = 1, adj = 0)
+            text(x.coords[1], y.coords, c(seq_along(o)), cex = 0.6, adj = 0)
             text(x.coords[2], y.coords, o, cex = 0.6, adj = 0)
-            rect(x.coords[3] - 0.02, y.coords[1] + 0.01, 1, 0,
-                border = "white", col = "white")
-            text(x.coords[3], y.coords, round(e.max[o], 2), cex = 0.6,
-                adj = 0)
-            text(x.coords[4], y.coords, round(e.min[o], 2), cex = 0.6,
-                adj = 0)
-            text(x.coords[5], y.coords, round(r.genes[o], 2),
-                cex = 0.6, adj = 0)
-            text(x.coords[7], y.coords, env$gene.info$descriptions[o],
+            text(x.coords[4], y.coords, env$gene.info$descriptions[o],
                 cex = 0.6, adj = 0)
         }
         else {
@@ -248,7 +239,7 @@ function (env, spot.list, main, path)
         plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
             xlim = c(0, 1), ylim = c(0, 1))
         if (env$preferences$activated.modules$geneset.analysis) {
-            n.sets <- 40
+            n.sets <- 20
             top.gs.p <- sort(spot.list$spots[[m]]$Fisher.p[names(which(sapply(env$gs.def.list,
                 function(x) x$Type) != "Chromatin states"))])[1:n.sets]
             par(mar = c(0, 0, 0, 0))
@@ -256,11 +247,11 @@ function (env, spot.list, main, path)
             y.coords <- seq(0.75, 0.02, length.out = n.sets)
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
-            text(0, 0.88, "Geneset Overrepresentation", cex = 1.8,
+            text(0, 0.88, "Geneset Overrepresentation", cex = 1.2,
                 adj = 0)
             text(x.coords, 0.82, c("Rank", "p-value", "#in/all",
                 "Geneset", ""), cex = 1, adj = 0)
-            text(x.coords[1], y.coords, c(1:n.sets), adj = 0)
+            text(x.coords[1], y.coords, c(1:n.sets), cex = 0.6, adj = 0)
             text(x.coords[2], y.coords, format(top.gs.p, digits = 1),
                 cex = 0.6, adj = 0)
             text(x.coords[3], y.coords, paste(sapply(env$gs.def.list[names(top.gs.p)],
