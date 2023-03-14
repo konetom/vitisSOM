@@ -1,4 +1,4 @@
-modules.reports <- function (env, spot.list, main, path)
+modules.report.sheets <- function (env, spot.list, main, path)
 {
     pdf(path, 29.7/2.54, 21/2.54, useDingbats = FALSE)
     if (main != "Correlation Cluster" && main != "K-Means Cluster") {
