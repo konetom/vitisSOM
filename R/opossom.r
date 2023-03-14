@@ -49,7 +49,7 @@ opossom.new <- function(preferences=NULL)
   })))
 
   # Set default preferences
-  env$preferences <- list(dataset.name = "Unnamed",
+  env$preferences <- list(dataset.name = "SOM",
 													note = "",
                           dim.1stLvlSom = "auto",
                           dim.2ndLvlSom = 20,
@@ -60,7 +60,7 @@ opossom.new <- function(preferences=NULL)
                                                     "primary.analysis" = TRUE, 
                                                     "sample.similarity.analysis" = TRUE,
                                                     "geneset.analysis" = TRUE, 
-                                                    "psf.analysis" = TRUE,
+                                                    "psf.analysis" = FALSE,
                                                     "group.analysis" = TRUE,
                                                     "difference.analysis" = TRUE ),
                           database.biomart = "ENSEMBL_MART_ENSEMBL",
@@ -138,7 +138,7 @@ opossom.run <- function(env)
   
   if(env$preferences$activated.modules$primary.analysis)
   {
-    util.info("Processing SOM. This may take some time until next notification.")
+    util.info("Processing SOM. This may take some time...")
     env <- pipeline.prepareIndata(env)
     env <- pipeline.generateSOM(env)
     
@@ -163,12 +163,6 @@ opossom.run <- function(env)
     env <- pipeline.genesetStatisticModules(env)
   }
   
-  if (env$preferences$activated.modules$psf.analysis)
-  {
-    util.info("Calculating Pathway Signal Flow (PSF)")
-    env <- pipeline.PSFcalculation(env)    
-  }
-  
   if(env$preferences$activated.modules$primary.analysis || env$preferences$activated.modules$geneset.analysis)
   {    
     filename <- paste(env$files.name, ".RData", sep="")
@@ -191,12 +185,11 @@ opossom.run <- function(env)
     pipeline.entropyProfiles(env)
     pipeline.topologyProfiles(env)
 
-    
-    if(length(env$chromosome.list) > 0)
-    {
-      util.info("Plotting Chromosome Expression Reports")
-      pipeline.chromosomeExpressionReports(env)
-    }
+    # if(length(env$chromosome.list) > 0)
+    # {
+    #   util.info("Plotting Chromosome Expression Reports")
+    #   pipeline.chromosomeExpressionReports(env)
+    # }
     
     if(ncol(env$indata) < 1000)
     {
@@ -224,15 +217,6 @@ opossom.run <- function(env)
       
       util.info("Plotting Geneset Profiles and Maps")
       pipeline.genesetProfilesAndMaps(env)
-      
-      util.info("Calculating Cancer Hallmark Enrichment")
-      pipeline.cancerHallmarks(env)
-    }
-    
-    if (env$preferences$activated.modules$psf.analysis)
-    {
-      util.info("Plotting PSF results")
-      pipeline.PSFoutput(env)
     }
     
     util.info("Writing Gene Lists")
