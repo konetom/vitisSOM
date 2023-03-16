@@ -92,22 +92,22 @@ pipeline.prepareAnnotation <- function(env)
         h <- h[which(h != "")]
         h <- h[which(!duplicated(names(h)))]
         env$gene.info$chr.start[names(h)] <- h
-        env$gene.info$ensembl.mapping <- unique(biomart.table[, 
+        env$gene.info$ensembl.mapping <- unique(biomart.table[,
             c(env$preferences$database.id.type, "ensembl_gene_id")])
-        gene.positions.table <- cbind(env$gene.info$chr.name, 
+        gene.positions.table <- cbind(env$gene.info$chr.name,
             env$gene.info$chr.band)
-        gene.positions.table <- gene.positions.table[which(gene.positions.table[, 
+        gene.positions.table <- gene.positions.table[which(gene.positions.table[,
             1] != "" & gene.positions.table[, 2] != ""), ]
-        skip.chrnames <- names(which(table(env$gene.info$chr.name) < 
+        skip.chrnames <- names(which(table(env$gene.info$chr.name) <
             20))
-        skip.chrnames <- union(skip.chrnames, unique(env$gene.info$chr.name)[which(nchar(unique(env$gene.info$chr.name)) >= 
+        skip.chrnames <- union(skip.chrnames, unique(env$gene.info$chr.name)[which(nchar(unique(env$gene.info$chr.name)) >=
             8)])
-        gene.positions.table <- gene.positions.table[which(!gene.positions.table[, 
+        gene.positions.table <- gene.positions.table[which(!gene.positions.table[,
             1] %in% skip.chrnames), ]
         if (nrow(gene.positions.table) > 0) {
-            env$chromosome.list <- tapply(rownames(gene.positions.table), 
+            env$chromosome.list <- tapply(rownames(gene.positions.table),
                 gene.positions.table[, 1], c)
-            env$chromosome.list <- lapply(env$chromosome.list, 
+            env$chromosome.list <- lapply(env$chromosome.list,
                 function(x) {
                   tapply(x, gene.positions.table[x, 2], c)
                 })
@@ -168,7 +168,7 @@ pipeline.prepareAnnotation <- function(env)
         env$gs.def.list <- c(env$gs.def.list, chr.gs.list)
     }
     data(opossom.genesets)
-    env$gs.def.list <- c(env$gs.def.list, opossom.genesets)
+    env$gs.def.list <- opossom.genesets
     env$gs.def.list <- lapply(env$gs.def.list, function(x) {
         x$Genes <- intersect(x$Genes, unique(env$gene.info$ensembl.mapping$ensembl_gene_id))
         return(x)
