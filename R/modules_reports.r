@@ -222,15 +222,14 @@ modules.report.sheets <- function (env, spot.list, main, path)
             o <- o[1:min(n.genes, length(o))]
             par(mar = c(0, 0, 0, 0))
             x.coords <- c(0, 0.2)
-            y.coords <- seq(0.8, 0.02, length.out = 10)
+            y.coords <- seq(0.75, 0.02, length.out = 20)
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
             text(x.coords[1], 0.82, "Gene ID", cex = 1, adj = 0)
             text(x.coords[2], 0.82, "Description", cex = 1, adj = 0)
             text(x.coords[1], y.coords, o, cex = 0.8, adj = 0)
-            trimmed_list <- lapply(env$gene.info$descriptions[o], function(x) sub("\\..*$", "", x))
-            text(x.coords[2], 0, paste(strwrap(trimmed_list, width=120), collapse="\n"), cex = 0.7, adj = 0)
+            text(x.coords[2], y.coords, o, cex = 0.4, adj = 0)
         }
         else {
             frame()
