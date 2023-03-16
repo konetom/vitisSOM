@@ -229,7 +229,7 @@ modules.report.sheets <- function (env, spot.list, main, path)
             text(x.coords[1], 0.82, "Gene ID", cex = 1, adj = 0)
             text(x.coords[2], 0.82, "Description", cex = 1, adj = 0)
             text(x.coords[1], y.coords, o, cex = 0.8, adj = 0)
-            text(x.coords[2], y.coords, paste(strwrap(trimmed_list, width=100), collapse="\n"), cex = 0.5, adj = 0)
+            text(x.coords[2], y.coords, paste(strwrap(env$gene.info$descriptions[o], width=100), collapse="\n"), cex = 0.5, adj = 0)
         }
         else {
             frame()
