@@ -113,10 +113,6 @@ pipeline.prepareAnnotation <- function(env)
                 })
         }
     }
-    if (env$preferences$database.dataset != "hsapiens_gene_ensembl") {
-        util.warn("Disabling PSF analysis (available for human data only).")
-        env$preferences$activated.modules$psf.analysis <- FALSE
-    }
     if (!env$preferences$activated.modules$geneset.analysis) {
         return(env)
     }
@@ -135,14 +131,8 @@ pipeline.prepareAnnotation <- function(env)
         list(Genes = x, Type = "")
     })
     if (length(env$gs.def.list) > 0) {
-        util.info("Download of", length(env$gs.def.list), "GO sets with", 
-            sum(sapply(sapply(env$gs.def.list, head, 1), length)), 
-            "entries")
         env$gs.def.list <- env$gs.def.list[which(sapply(env$gs.def.list, 
             function(x) length(x$Genes)) >= 20)]
-        util.info("Filtered to", length(env$gs.def.list), "GO sets with", 
-            sum(sapply(sapply(env$gs.def.list, head, 1), length)), 
-            "entries")
         biomart.table[, 4] <- sub("biological_process", "BP", 
             biomart.table[, 4])
         biomart.table[, 4] <- sub("molecular_function", "MF", 
@@ -186,7 +176,6 @@ pipeline.prepareAnnotation <- function(env)
     }
     else {
         env$preferences$activated.modules$geneset.analysis <- FALSE
-        util.warn("No Geneset information -> turning off GS analysis")
     }
     return(env)
 }

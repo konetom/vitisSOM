@@ -218,18 +218,17 @@ modules.report.sheets <- function (env, spot.list, main, path)
             else {
                 o <- names(sort(e.max, decreasing = TRUE))
             }
-            n.genes <- 40
-            o <- o[1:min(n.genes, length(o))]
+            n.genes <- 20
+            o <- o[1:min(n.genes * 2, length(o))]
             par(mar = c(0, 0, 0, 0))
-            x.coords <- c(0, 0.06, 0.2, 0.28, 0.36, 0.44, 0.52)
+            x.coords <- c(0, 0.2)
             y.coords <- seq(0.75, 0.02, length.out = length(o))
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
-            text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("ID",
-                "", "", "Description", "", "", ""), cex = 1, adj = 0)
+            text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("ID", "Description"), cex = 1, adj = 0)
             text(x.coords[1], y.coords, o, cex = 0.6, adj = 0)
-            text(x.coords[4], y.coords, paste(strwrap(env$gene.info$descriptions[o], width=50), collapse="\n"),
+            text(x.coords[2], y.coords, paste(strwrap(env$gene.info$descriptions[o][:240], width=80), collapse="\n"),
                 cex = 0.6, adj = 0, )
         }
         else {
