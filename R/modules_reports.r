@@ -219,17 +219,17 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 o <- names(sort(e.max, decreasing = TRUE))
             }
             n.genes <- 20
-            o <- o[1:min(n.genes, length(o))]
+            o <- o[1:min(n.genes, length(o) * 1.5)]
             par(mar = c(0, 0, 0, 0))
-            x.coords <- c(0, 0.2)
-            y.coords <- seq(0.75, 0.02, length.out = n.genes)
-            plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
-                xlim = c(0, 1), ylim = c(0, 1))
+            x.coords <- c(0, 0.1, 0.2)
+            y.coords <- seq(0.75, 0.02, length.out = length(o))
+            plot(0, type = "n", axes = FALSE, xlab = "", ylab = "", xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
-            text(x.coords[1], 0.82, "Gene ID", cex = 1, adj = 0)
-            text(x.coords[2], 0.82, "Description", cex = 1, adj = 0)
-            text(x.coords[1], y.coords, o, cex = 0.7, adj = 0)
-            text(x.coords[2], y.coords, env$gene.info$descriptions[o], cex = 0.7, adj = 0)
+            text(x.coords, rep(c(0.82, 0.80), 4)[1:7],
+                c("ID", "", "Description", "", "", "", ""),
+                cex=1, adj=0)
+            text(x.coords[1], y.coords, o, cex = 0.6, adj = 0)
+            text(x.coords[3], y.coords, env$gene.info$descriptions[o], cex = 0.6, adj = 0)
         }
         else {
             frame()
@@ -249,9 +249,9 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 adj = 0)
             text(x.coords, 0.82, c("Rank", "p-value", "#in/all",
                 "Geneset", ""), cex = 1, adj = 0)
-            text(x.coords[1], y.coords, c(1:n.sets), cex = 0.7, adj = 0)
+            text(x.coords[1], y.coords, c(1:n.sets), cex = 0.6, adj = 0)
             text(x.coords[2], y.coords, format(top.gs.p, digits = 1),
-                cex = 0.7, adj = 0)
+                cex = 0.6, adj = 0)
             text(x.coords[3], y.coords, paste(sapply(env$gs.def.list[names(top.gs.p)],
                 function(x) {
                   length(intersect(x$Genes, unique(env$gene.info$ensembl.mapping$ensembl_gene_id[which(env$gene.info$ensembl.mapping[,
@@ -259,11 +259,11 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 }), "/", sapply(env$gs.def.list[names(top.gs.p)],
                 function(x) {
                   length(x$Genes)
-                })), cex = 0.7, adj = 0)
+                })), cex = 0.6, adj = 0)
             text(x.coords[4], y.coords, sapply(env$gs.def.list,
                 function(x) {
                   x$Type
-                })[names(top.gs.p)], cex = 0.7, adj = 0)
+                })[names(top.gs.p)], cex = 0.6, adj = 0)
             try.res <- try({
                 fdrtool.result <- suppressWarnings({
                   fdrtool(spot.list$spots[[m]]$Fisher.p, statistic = "pvalue",
