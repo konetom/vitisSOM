@@ -218,18 +218,18 @@ modules.report.sheets <- function (env, spot.list, main, path)
             else {
                 o <- names(sort(e.max, decreasing = TRUE))
             }
-            n.genes <- 20
+            n.genes <- 40
             o <- o[1:min(n.genes, length(o))]
             par(mar = c(0, 0, 0, 0))
             x.coords <- c(0, 0.06, 0.2, 0.28, 0.36, 0.44, 0.52)
-            y.coords <- seq(0.75, 0.02, length.out = length(o))
+            y.coords <- seq(0.5, 0.02, length.out = length(o))
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
             text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("Rank",
-                "ID", "", "Description", "", "", ""), cex = 1, adj = 0)
+                "", "ID", "Description", "", "", ""), cex = 1, adj = 0)
             text(x.coords[1], y.coords, c(seq_along(o)), cex = 0.6, adj = 0)
-            text(x.coords[2], y.coords, o, cex = 0.6, adj = 0)
+            text(x.coords[3], y.coords, o, cex = 0.6, adj = 0)
             text(x.coords[4], y.coords, env$gene.info$descriptions[o],
                 cex = 0.6, adj = 0)
         }
@@ -239,12 +239,12 @@ modules.report.sheets <- function (env, spot.list, main, path)
         plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
             xlim = c(0, 1), ylim = c(0, 1))
         if (env$preferences$activated.modules$geneset.analysis) {
-            n.sets <- 20
+            n.sets <- 40
             top.gs.p <- sort(spot.list$spots[[m]]$Fisher.p[names(which(sapply(env$gs.def.list,
                 function(x) x$Type) != "Chromatin states"))])[1:n.sets]
             par(mar = c(0, 0, 0, 0))
             x.coords <- c(0, 0.1, 0.23, 0.34, 0.4)
-            y.coords <- seq(0.75, 0.02, length.out = n.sets)
+            y.coords <- seq(0.5, 0.02, length.out = n.sets)
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Geneset Overrepresentation", cex = 1.2,
