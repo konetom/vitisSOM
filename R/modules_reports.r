@@ -222,14 +222,14 @@ modules.report.sheets <- function (env, spot.list, main, path)
             gene.count <- 10
             o <- o[1:min(table.height, length(o))]
             par(mar = c(0, 0, 0, 0))
-            x.coords <- c(0, 0.1)
+            x.coords <- c(0, 0.2)
             y.coords <- seq(0.75, 0.02, length.out = gene.count)
             plot(0, type = "n", axes = FALSE, xlab = "", ylab = "",
                 xlim = c(0, 1), ylim = c(0, 1))
             text(0, 0.88, "Spot Genelist", cex = 1.2, adj = 0)
-            text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("Gene ID", "Description"), cex = 1, adj = 0)
-            text(x.coords[1], y.coords, o, cex = 0.9, adj = 0)
-            text(x.coords[2], y.coords, paste(strwrap(env$gene.info$descriptions[o], width=100), collapse="\n"), cex = 0.5, adj = 0)
+            text(x.coords, rep(c(0.82, 0.8), 4)[1:7], c("Gene ID", "", "Description"), cex = 1, adj = 0)
+            text(x.coords[1], y.coords, o, cex = 0.8, adj = 0)
+            text(x.coords[2], y.coords, paste(strwrap(env$gene.info$descriptions[o], width=150), collapse="\n"), cex = 0.4, adj = 0)
         }
         else {
             frame()
