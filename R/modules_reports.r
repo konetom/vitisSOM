@@ -229,8 +229,8 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 c("ID", "", "Description", "", "", "", ""),
                 cex=1, adj=0)
             text(x.coords[1], y.coords, o, cex = 0.7, adj = 0)
-            wrapped <- str_wrap(env$gene.info$descriptions[o], width = 100)
-            text(x.coords[3], y.coords, wrapped, cex = 0.4, adj = 0)
+            wrapped <- str_wrap(env$gene.info$descriptions[o], width = 120)
+            text(x.coords[3], y.coords, wrapped, cex = 0.5, adj = 0)
         }
         else {
             frame()
