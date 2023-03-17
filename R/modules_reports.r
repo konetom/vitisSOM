@@ -219,7 +219,7 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 o <- names(sort(e.max, decreasing = TRUE))
             }
             n.genes <- 20
-            o <- o[1:min(n.genes, length(o) * 1.5)]
+            o <- o[1:30]
             par(mar = c(0, 0, 0, 0))
             x.coords <- c(0, 0.1, 0.2)
             y.coords <- seq(0.75, 0.02, length.out = length(o))
@@ -229,7 +229,8 @@ modules.report.sheets <- function (env, spot.list, main, path)
                 c("ID", "", "Description", "", "", "", ""),
                 cex=1, adj=0)
             text(x.coords[1], y.coords, o, cex = 0.6, adj = 0)
-            text(x.coords[3], y.coords, env$gene.info$descriptions[o], cex = 0.6, adj = 0)
+            wrapped <- str_wrap(env$gene.info$descriptions[o], width = 100)
+            text(x.coords[3], y.coords, wrapped, cex = 0.6, adj = 0)
         }
         else {
             frame()
