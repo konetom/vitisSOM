@@ -6,25 +6,26 @@ color.palette.discrete <- function(n)   # color scheme from https://personal.sro
                   "#437DBF", "#5289C7", "#6195CF", "#7BAFDE", "#4EB265",
                   "#90C987", "#CAE0AB", "#F7F056", "#F7CB45", "#F6C141",
                   "#F4A736", "#F1932D", "#EE8026", "#E8601C", "#E65518",
-                  "#DC050C", "#A5170E", "#72190E", "#42150A" )
+                  "#DC050C", "#A5170E", "#72190E", "#42150A"
+                  )
   
   n <- ceiling(n)
     
   if (n == 1) return( color.set[c(10)] )
   if (n == 2) return( color.set[c(10,26)] )
-  if (n == 3) return( color.set[c(10,18,26)] )
-  if (n == 4) return( color.set[c(10,15,18,26)] )
-  if (n == 5) return( color.set[c(10,14,15,18,26)] )
+  if (n == 3) return( color.set[c(10,20,26)] )
+  if (n == 4) return( color.set[c(10,15,20,26)] )
+  if (n == 5) return( color.set[c(10,14,15,20,26)] )
   
-  if (n == 6) return( color.set[c(10,14,15,17,18,26)] )
-  if (n == 7) return( color.set[c(9,10,14,15,17,18,26)] )
-  if (n == 8) return( color.set[c(9,10,14,15,17,18,23,26)] )
-  if (n == 9) return( color.set[c(9,10,14,15,17,18,23,26,28)] )
-  if (n == 10) return( color.set[c(9,10,14,15,17,18,21,24,26,28)] )
+  if (n == 6) return( color.set[c(10,14,15,17,20,26)] )
+  if (n == 7) return( color.set[c(9,10,14,15,17,20,26)] )
+  if (n == 8) return( color.set[c(9,10,14,15,17,20,23,26)] )
+  if (n == 9) return( color.set[c(9,10,14,15,17,20,23,26,28)] )
+  if (n == 10) return( color.set[c(9,10,14,15,17,19,21,24,26,28)] )
                                  
-  if (n == 11) return( color.set[c(9,10,12,14,15,17,18,21,24,26,28)] )
-  if (n == 12) return( color.set[c(3,6,9,10,12,14,15,17,18,21,24,26)] )
-  if (n == 13) return( color.set[c(3,6,9,10,12,14,15,16,17,18,21,24,26)] )
+  if (n == 11) return( color.set[c(9,10,12,14,15,17,19,21,24,26,28)] )
+  if (n == 12) return( color.set[c(3,6,9,10,12,14,15,17,19,21,24,26)] )
+  if (n == 13) return( color.set[c(3,6,9,10,12,14,15,16,17,19,21,24,26)] )
   if (n == 14) return( color.set[c(3,6,9,10,12,14,15,16,17,18,20,22,24,26)] )
   if (n == 15) return( color.set[c(3,6,9,10,12,14,15,16,17,18,20,22,24,26,28)] )
   
