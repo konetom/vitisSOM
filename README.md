@@ -1,26 +1,14 @@
-This is the latest development version of the Bioconductor R-package 'oposSOM':
+### This is vitisSOM, the fork of existing R-package 'oposSOM'
 
-http://master.bioconductor.org/packages/devel/bioc/html/oposSOM.html
+Install the package from GitHub from R (version 4.3.2):
 
-To install the package from GitHub use the following commands in R:
-
-```
+```r
 install.packages("devtools")
 
 library(devtools)
-install_github("hloefflerwirth/oposSOM")
+install_github("konetom/vitisSOM", force = T)
 ```
 
 
-Note: C++ compiler is required. For Windows systems usage of Rtools is recommended:
-
-https://cran.r-project.org/bin/windows/Rtools/
-
-
-Alternatively, precompiled package binaries for Windows can be obtained from the latest releases (https://github.com/hloefflerwirth/oposSOM/releases):
-
-```
-install.packages(
-  "https://github.com/hloefflerwirth/oposSOM/releases/download/2.1.1/oposSOM_2.1.1.zip", 
-  repos = NULL, type = "binary" )
-```
+> [!WARNING]
+For Windows systems, install Rtools (version 4.3) from [here](https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html)
