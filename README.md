@@ -1,6 +1,8 @@
 ### This is vitisSOM, the fork of existing R-package 'oposSOM'
 
-Install the package from GitHub from R (version 4.3.2):
+<br>
+
+#### Install the package from GitHub via R (version 4.3.2):
 
 ```r
 install.packages("devtools")
