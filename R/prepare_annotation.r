@@ -38,7 +38,6 @@ pipeline.prepareAnnotation <- function(env)
     if (env$preferences$database.dataset == "auto") {
         env <- pipeline.detectEnsemblDataset(env)
     }
-    util.warn("Disabling geneset & PSF analyses.")
     mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org", 
         dataset = "vvinifera_eg_gene")
     biomart.table <- getBM(c("ensembl_gene_id", "chromosome_name", 
@@ -151,7 +150,7 @@ pipeline.prepareAnnotation <- function(env)
         env$gs.def.list <- c(env$gs.def.list, chr.gs.list)
     }
     data(opossom.genesets)
-    env$gs.def.list <- opossom.genesets
+    # env$gs.def.list <- opossom.genesets
     env$gs.def.list <- lapply(env$gs.def.list, function(x) {
         x$Genes <- intersect(x$Genes, unique(env$gene.info$ensembl.mapping$ensembl_gene_id))
         return(x)
