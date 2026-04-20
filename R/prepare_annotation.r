@@ -23,27 +23,15 @@ pipeline.prepareAnnotation <- function(env)
         env$preferences$activated.modules$psf.analysis <- FALSE
         return(env)
     }
-    if (!env$preferences$database.dataset %in% c("auto", "")) {
-        mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org", 
-            dataset = "vvinifera_eg_gene")
-        biomart.table <- getBM(c("ensembl_gene_id", "chromosome_name", 
-            "name_1006", "definition_1006"), "ensembl_gene_id", rownames(env$indata), 
-            mart, checkFilters = FALSE)
-        if (is.null(biomart.table) || nrow(biomart.table) == 
-            0) {
-            util.warn("Invalid annotation parameters. Trying autodetection...")
-            env$preferences$database.dataset <- "auto"
-        }
-    }
-    if (env$preferences$database.dataset == "auto") {
-        env <- pipeline.detectEnsemblDataset(env)
-    }
+    env <- pipeline.detectEnsemblDataset(env)
     util.warn("Disabling geneset & PSF analyses.")
-    mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org", 
-        dataset = "vvinifera_eg_gene")
-    biomart.table <- getBM(c("ensembl_gene_id", "chromosome_name", 
-        "name_1006", "definition_1006"), "ensembl_gene_id", rownames(env$indata), 
-        mart, checkFilters = FALSE)
+    mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org",
+                    dataset = "vvinifera_eg_gene")
+    biomart_genenames = gsub("Vitvi", "Vitis", rownames(env$indata))
+    biomart.table <- getBM(c("ensembl_gene_id", "chromosome_name",
+                             "name_1006", "definition_1006", "goslim_goa_description"), "ensembl_gene_id", biomart_genenames,
+                           mart, checkFilters = FALSE)
+    biomart.table$ensembl_gene_id = gsub("Vitis", "Vitvi", biomart.table$ensembl_gene_id)
     query <- "ensembl_gene_id"
 
     if (is.null(biomart.table) || nrow(biomart.table) == 0) {
@@ -110,12 +98,15 @@ pipeline.prepareAnnotation <- function(env)
         return(env)
     }
     suppressWarnings({
-        mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org", 
+        mart <- useMart(
+            biomart = "plants_mart", host = "https://plants.ensembl.org",
             dataset = "vvinifera_eg_gene")
-        biomart.table <- getBM(c("ensembl_gene_id", "chromosome_name", 
-            "name_1006", "definition_1006"), "ensembl_gene_id", rownames(env$indata), 
-            mart, checkFilters = FALSE)
-         })
+        biomart_genenames = gsub("Vitvi", "Vitis", rownames(env$indata))
+        biomart.table <- getBM(
+            c("ensembl_gene_id", "chromosome_name", "name_1006", "definition_1006", "goslim_goa_description"),
+            "ensembl_gene_id", biomart_genenames, mart, checkFilters = FALSE)
+        biomart.table$ensembl_gene_id = gsub("Vitis", "Vitvi", biomart.table$ensembl_gene_id)
+    })
     biomart.table <- biomart.table[which(apply(biomart.table, 
         1, function(x) sum(x == "")) == 0), ]
     env$gs.def.list <- tapply(biomart.table[, 1], biomart.table[, 
@@ -156,10 +147,9 @@ pipeline.prepareAnnotation <- function(env)
         x$Genes <- intersect(x$Genes, unique(env$gene.info$ensembl.mapping$ensembl_gene_id))
         return(x)
     })
-    env$gs.def.list <- env$gs.def.list[which(sapply(sapply(env$gs.def.list, 
-        head, 1), length) >= 10)]
-    env$gs.def.list <- env$gs.def.list[which(sapply(names(env$gs.def.list), 
-        nchar) < 60)]
+    env$gs.def.list <- env$gs.def.list[which(sapply(sapply(env$gs.def.list, head, 1), length) >= 3)]
+    # env$gs.def.list <- env$gs.def.list[which(sapply(sapply(env$gs.def.list, head, 1), length) >= 10)]
+    # env$gs.def.list <- env$gs.def.list[which(sapply(names(env$gs.def.list), nchar) < 60)]
     if (length(env$gs.def.list) > 0) {
         env$gs.def.list <- lapply(env$gs.def.list, function(x) {
             names(x$Genes) = NULL
