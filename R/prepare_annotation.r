@@ -24,7 +24,6 @@ pipeline.prepareAnnotation <- function(env)
         return(env)
     }
     env <- pipeline.detectEnsemblDataset(env)
-    util.warn("Disabling geneset & PSF analyses.")
     mart <- useMart(biomart = "plants_mart", host = "https://plants.ensembl.org",
                     dataset = "vvinifera_eg_gene")
     biomart_genenames = gsub("Vitvi", "Vitis", rownames(env$indata))
