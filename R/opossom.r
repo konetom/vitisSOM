@@ -252,6 +252,7 @@ opossom.run <- function(env)
   }    
     
   util.info("Finished:", format(Sys.time(), "%a %b %d %X"))
+  setwd("..")
 	
 	return(env)
 }
